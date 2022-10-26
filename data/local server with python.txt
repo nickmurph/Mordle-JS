@@ -1,0 +1,7 @@
+
+running a local server to avoid CORS error
+1. open terminal with python installed
+2. cd to the project directory (eg, pwd, cd .., cd Mordle-JS)
+3. use the following command: python -m http.server 
+4. navigate to localhost:8000 in the browser 
+5. if a file directory loads instead of the page, simply click your html
