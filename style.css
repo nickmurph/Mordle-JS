@@ -1,6 +1,4 @@
 body {
-	/*font: 'Raleway', sans-serif;*/
-/*    color: rgba(0,0,0,.5);*/
     color: rgba(255,255,255,.5);
     text-align: center;
     text-transform: uppercase;
@@ -9,7 +7,6 @@ body {
     top: 15%;
 	background: linear-gradient(to right, grey, deepskyblue);
 /*    background-image:url('img/stardust.png');*/
-    /*background-repeat:no-repeat;*/
     background-size:contain;
     background-position:center;
 }
@@ -17,19 +14,22 @@ body {
 
 h1 {
     font-size: 3.5rem;
+/*    font-size: 3.5vh;*/
 }
 
 
 #brainIcon {
     height: 2.5rem;
     width: 2.5rem;
-/*    padding: .0005rem, .0005rem;
-    margin: .0005rem, .0005rem;*/
+/*    width: 2.5vw;
+    height: 2.5vh;*/
 }
 
 .row {
     width: 5rem;
     height: 5rem;
+/*    width: 5vw;
+    height: 5vh;*/
     background-color: dimgrey;
     opacity: 0.5;
     outline: none;
@@ -39,9 +39,6 @@ h1 {
     font-size: 4.5rem;
 }
 
-.row1 {
-
-}
 
 .grid-container{
     display: inline-grid;
@@ -50,10 +47,54 @@ h1 {
     grid-template-columns: repeat(5, 1fr);
 }
 
-/*#oneone{
-    grid-column-start: 1;
-    grid-column-end: 6;
 
-    grid-row-start: 1;
-    grid-row-end: 7;
-}*/
+
+.keyboard{
+    display: flex;
+    flex-direction: column;
+    align-self: center;
+    align-items: center;
+    opacity: 0.8;
+    text-align: center;
+    text-transform: uppercase;
+/*    width: 2rem;
+    height: 2rem;*/
+/*    padding: .005rem,.005rem;
+    margin: .005rem,.005rem;*/
+}
+
+.toprow{
+    display: flex;
+    flex-direction: row;
+/*    width: 5rem;
+    height: 5rem;*/
+    align-self: center;
+    align-items: center;
+    justify-items: center;
+}
+.middlerow{
+    display: flex;
+    flex-direction: row;
+    align-self: center;
+    align-items: center;
+    justify-items: center;
+}
+.bottomrow{
+    display: flex;
+    flex-direction: row;
+    align-self: center;
+    align-items: center;
+    justify-items: center;
+}
+
+.kbBTN{
+    width: 4rem;
+    height: 4rem;
+/*    width: 4vw;
+    height: 4vh;*/
+    padding: .2rem, .2rem;
+    margin: .2rem, .2rem;
+    background-color: lightgray;
+/*    text-decoration-color: seashell;*/
+    color: black;
+}
