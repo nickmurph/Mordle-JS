@@ -1,2 +1,2 @@
 # Mordle-JS
- An implementation of the Mordle desktop app, rebuilt in JS for the web
+A Wordle-like game, spiritually adapted from the previous Mordle project, a python desktop app
