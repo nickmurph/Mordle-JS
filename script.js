@@ -29,81 +29,72 @@ let inputBoxes = inputGrid.children;
 
 let inputIndex = 0;
 let startBox = inputBoxes[0];
-startBox.focus();
+let curRowStart = 0;
+// startBox.focus();
 // inputBoxes[inputIndex].focus();
 let curGuess = "";
-// let curGuessLen = curGuess.length;
+
 
 
 activeObj.addEventListener('keypress', (e) => {
-    activeObj = document.activeElement;
+    activeObj = document.getElementById("testInput");
     let curInput = e.key.toUpperCase();
     
-    // if the player hits Enter, validate if a full word has been typed, reject otherwise
-    if (curInput == "ENTER"){
-        //TODO: implement logic for rejecting Enter unless 5 letters have been entered
-        // should give user a subtle nod that enter was rejected, maybe by wiggling input boxes for that row?
-        return;
+    if (curGuess.length >= 5 && curInput != "ENTER"){
+        return
     }
 
-    //if its a valid letter, increment index and add entered value to the curGuess, move to next box
     if (validLetters.includes(curInput) && curInput != ""){
-        if (inputIndex <= 29){
-            //&& ((inputIndex+1) % 5 != 0)
-            //TODO: add an activeobject.value = "" to the backspace logic to correspond to this
-            //TODO: this should fix the issue of backspacing one char to left when at 5-char wall
-            inputIndex++;
-        }
-        curGuess = curGuess + curInput;
+       curGuess = curGuess + curInput;
         console.log(curGuess);
-        // console.log(curGuessLen);
-        activeObj = inputBoxes[inputIndex];
-        activeObj.focus();
-    }  
-});
+        activeObj.textContent = curGuess;
+        paintLettersToGrid(curRowStart);
+    }
+
+    if (curInput == "ENTER" ){
+        //TODO: if enter hit with incomplete guess, do nothing. ELSE, do other checks
+        if (curGuess.length < 5){
+            console.log("enter pressed prematurely");
+        }
+        //TODO: if enter hit with 5 letters in guess, validate the guess
+        else if (curGuess.length == 5){
+            console.log("validate guess here");
+            //TODO: if guess is incorrect, shake the boxes sideways paint letters accordingly, and move to next row
+            //TODO: if guess is correct, shake the boxes vertically, paint all green, print victory message
+        }
+
+ 
+    }
+}  
+);
 
 
 activeObj.addEventListener('keyup', (e) => {
-    activeObj = document.activeElement;
-    let curInput = e.key.toUpperCase();
-
-    //if the player has entered TAB, undo the default action of tabbing to next box
-    if (curInput == "TAB"){
-        activeObj = inputBoxes[inputIndex]
-        activeObj.focus();
-        shakeElementViaCSS(activeObj);
+    if (curGuess.length < 0){
+        return
     }
 
-    //if the player has entered an invalid char, clear the box without advancing to the next one
-    //shake the element to give the user a visual cue that the input was not valid
-    if (!validLetters.includes(curInput) && !validKeys.includes(curInput)){
-        activeObj.value = "";
-        activeObj = inputBoxes[inputIndex];
-        activeObj.focus();
-        shakeElementViaCSS(activeObj);
+    activeObj = document.getElementById("testInput");
+    let curInput = e.key.toUpperCase();
+
+    if (curInput == "BACKSPACE" ){
+        curGuess = curGuess.slice(0,-1);
+        console.log(curGuess);
+        activeObj.textContent = curGuess;
+        paintLettersToGrid(curRowStart);
     }
 });
 
 
-activeObj.addEventListener('keydown', (e) => {
-    activeObj = document.activeElement;
-    let curInput = e.key.toUpperCase();
-
-    //if the player has entered a backspace, diminish curGuess and move to previous input box
-    if (curInput == "BACKSPACE"){
-        if (inputIndex > 0){
-            inputIndex--;
-        };
-
-        if (activeObj.value.length != 1){
-            curGuess = curGuess.slice(0,-1);
-            console.log(curGuess);
+function paintLettersToGrid(startPos){
+    for (let i=0; i < 5; i++){
+        if (curGuess[i] == undefined){
+            inputBoxes[startPos + i].value = "";
+        } else {
+        inputBoxes[startPos + i].value = curGuess[i];
         }
-        activeObj = inputBoxes[inputIndex];
-        activeObj.focus();
-
     }
-});
+}
 
 
 
