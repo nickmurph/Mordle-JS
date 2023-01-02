@@ -40,6 +40,9 @@ activeObj.addEventListener('keypress', (e) => {
     activeObj = document.getElementById("testInput");
     let curInput = e.key.toUpperCase();
     
+    if (curInput == "TAB"){
+        return
+    }
     if (curGuess.length >= 5 && curInput != "ENTER"){
         return
     }
@@ -59,8 +62,18 @@ activeObj.addEventListener('keypress', (e) => {
         //TODO: if enter hit with 5 letters in guess, validate the guess
         else if (curGuess.length == 5){
             console.log("validate guess here");
-            //TODO: if guess is incorrect, shake the boxes sideways paint letters accordingly, and move to next row
-            //TODO: if guess is correct, shake the boxes vertically, paint all green, print victory message
+            //TODO: paint the boxes green/red/yellow accordingly 
+            //shake the boxes sideways to indicate incorrect guess
+            for (let i=0; i < 5; i++){
+                let curElem = inputBoxes[curRowStart + i]
+                shakeElementViaCSS(curElem);
+            }
+
+            //move to next row and reset curGuess
+            curRowStart = curRowStart + 5;
+            curGuess = "";
+
+        //TODO: if guess is correct, shake the boxes vertically, paint all green, print victory message
         }
 
  
