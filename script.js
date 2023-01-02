@@ -2,7 +2,7 @@ import { getWordList } from "./wordList.js";
 
 
 const wordList = getWordList();
-console.log(`the wordlist is ${wordList.length} words long, from ${wordList[0]} to ${wordList[wordList.length-1]}!`);
+// console.log(`the wordlist is ${wordList.length} words long, from ${wordList[0]} to ${wordList[wordList.length-1]}!`);
 
 
 //ensures that the input boxes are cleared when the page is refreshed
@@ -16,7 +16,6 @@ window.onload = function() {
 let activeObj = document;
 let inputGrid = document.getElementById("inputGrid");
 let validLetters = "QWERTYUIOPASDFGHJKLZXCVBNM";
-let validKeys = ["BACKSPACE","ENTER","TAB"];
 let inputBoxes = inputGrid.children;
 //indexes of 0-29 represent the input boxes
 //leading zeros in first two rows merely for visual alignment
@@ -25,13 +24,11 @@ let inputBoxes = inputGrid.children;
 // 10 11 12 13 14
 // 15 16 17 18 19
 // 20 21 22 23 24
-// 26 26 27 28 29
+// 25 26 27 28 29
 
 let inputIndex = 0;
 let startBox = inputBoxes[0];
 let curRowStart = 0;
-// startBox.focus();
-// inputBoxes[inputIndex].focus();
 let curGuess = "";
 
 
@@ -47,8 +44,7 @@ activeObj.addEventListener('keypress', (e) => {
     }
 
     if (validLetters.includes(curInput) && curInput != ""){
-       curGuess = curGuess + curInput;
-        console.log(curGuess);
+        curGuess = curGuess + curInput;
         paintLettersToGrid(curRowStart);
     }
 
@@ -62,10 +58,7 @@ activeObj.addEventListener('keypress', (e) => {
             //TODO: paint the boxes green/red/yellow accordingly
 
             //shake the boxes sideways to indicate incorrect guess
-            for (let i=0; i < 5; i++){
-                let curElem = inputBoxes[curRowStart + i]
-                shakeElementViaCSS(curElem);
-            }
+            shakeAllElemsInRow(curRowStart,"X");
 
             //move to next row and reset curGuess
             curRowStart = curRowStart + 5;
@@ -74,7 +67,8 @@ activeObj.addEventListener('keypress', (e) => {
         //TODO: if guess is correct, shake the boxes vertically, paint all green, print victory message
             //paint all boxes in the row green
 
-            //shake all the boxes
+            //shake all the boxes vertically
+            // shakeAllElemsInRow(curRowStart,"Y");
 
             //print victory message/menu
         }
@@ -86,15 +80,14 @@ activeObj.addEventListener('keypress', (e) => {
 
 
 activeObj.addEventListener('keyup', (e) => {
+    let curInput = e.key.toUpperCase();
+    
     if (curGuess.length < 0){
         return
     }
 
-    let curInput = e.key.toUpperCase();
-
     if (curInput == "BACKSPACE" ){
         curGuess = curGuess.slice(0,-1);
-        console.log(curGuess);
         paintLettersToGrid(curRowStart);
     }
 });
@@ -112,13 +105,20 @@ function paintLettersToGrid(startPos){
 
 
 
-function shakeElementViaCSS(targetElem){
+function shakeAllElemsInRow(row, shakeAxis){
+    for (let i=0; i < 5; i++){
+        let curElem = inputBoxes[row + i]
+        shakeElementViaCSS(curElem, shakeAxis);
+    }
+}
+
+//shakeAxis must be a string of form "X" or "Y", indicating horizontal or vertical axis to shake
+function shakeElementViaCSS(targetElem, shakeAxis){
     //adding the class names causes the element to shake
-    targetElem.classList.add('animate__animated', 'animate__shakeX');
+    targetElem.classList.add('animate__animated', 'animate__shake' + shakeAxis);
 
     //listening for the animation to finish and removing the class names
-    //this ensures the animation can happen again if triggered by user behavior
     targetElem.addEventListener('animationend', () => {
-        targetElem.classList.remove('animate__animated', 'animate__shakeX');
+        targetElem.classList.remove('animate__animated', 'animate__shake' + shakeAxis);
       });
 };
