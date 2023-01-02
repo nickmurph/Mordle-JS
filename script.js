@@ -1,38 +1,27 @@
 import { getWordList } from "./wordList.js";
 
 //ensures that the input boxes are cleared when the page is refreshed
-window.onload = function() {
-    let testElems = Array.from(document.getElementsByClassName('row'));
-    testElems = testElems.map( elem => {
-        elem.value = ''
-    })
-};
+window.onload = emptyAllBoxes();
 
+//constants
 const wordList = getWordList();
 const numWords = wordList.length;
-const curWord = getRandomWord(wordList);
-console.log(curWord);
-
 const greenBox = "seaGreen";
 const yellowBox = "darkKhaki";
 const redBox =  "indianRed";
 
+
+let curWord = getRandomWord(wordList);
+console.log(curWord);
 let activeObj = document;
 let gameGrid = document.getElementById("gameGrid");
 let validLetters = "QWERTYUIOPASDFGHJKLZXCVBNM";
 let inputBoxes = gameGrid.children;
-//indexes of 0-29 represent the input boxes
-//leading zeros in first two rows merely for visual alignment
-// 00 01 02 03 04
-// 05 06 07 08 09
-// 10 11 12 13 14
-// 15 16 17 18 19
-// 20 21 22 23 24
-// 25 26 27 28 29
-
-
 let curRowStart = 0;
 let curGuess = "";
+
+
+
 
 
 
@@ -66,6 +55,14 @@ activeObj.addEventListener('keypress', (e) => {
                 //move to next row and reset curGuess
                 curRowStart = curRowStart + 5;
                 curGuess = "";
+
+                //TODO: if this is the sixth incorrect guess, print failure message 
+                if (curRowStart == 30){
+                    setTimeout(() => {
+                        window.alert("You didn't guess the word!");
+                        resetGame();
+                    }, 750);
+                }
             }
             //correct guess
             else if (curGuess == curWord){
@@ -75,13 +72,10 @@ activeObj.addEventListener('keypress', (e) => {
                 shakeAllElemsInRow(curRowStart,"Y");
 
                 //print victory message/menu
-                // document.addEventListener('animationend', () => {
-                //     if (confirm("You guessed correctly! Play again?")) {
-                //         //TODO: reset game
-                //         } else {
-                //           //TODO: exit
-                //         } 
-                //   });
+                setTimeout(() => {
+                    window.alert("You correctly guessed the word!");
+                    resetGame();
+                }, 750);
             }
         }
     }
@@ -155,3 +149,27 @@ function shakeElementViaCSS(targetElem, shakeAxis){
         targetElem.classList.remove('animate__animated', 'animate__shake' + shakeAxis);
       });
 };
+
+
+function resetGame(){
+    emptyAllBoxes();
+    curWord = getRandomWord(wordList);
+    console.log(curWord);
+    // activeObj = document;
+    // gameGrid = document.getElementById("gameGrid");
+    // validLetters = "QWERTYUIOPASDFGHJKLZXCVBNM";
+    // inputBoxes = gameGrid.children;
+    curRowStart = 0;
+    curGuess = "";
+
+
+
+}
+
+function emptyAllBoxes(){    
+    let testElems = Array.from(document.getElementsByClassName('row'));
+    testElems = testElems.map( elem => {
+        elem.value = ''
+        elem.style.backgroundColor = "rgb(105, 105, 105)";
+    })
+}
