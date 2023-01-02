@@ -2764,7 +2764,6 @@ let wordList=
   "STING",
   "STINK",
   "STINT",
-  "STOAT",
   "STOCK",
   "STOIC",
   "STOKE",

@@ -1,10 +1,5 @@
 import { getWordList } from "./wordList.js";
 
-
-const wordList = getWordList();
-// console.log(`the wordlist is ${wordList.length} words long, from ${wordList[0]} to ${wordList[wordList.length-1]}!`);
-
-
 //ensures that the input boxes are cleared when the page is refreshed
 window.onload = function() {
     let testElems = Array.from(document.getElementsByClassName('row'));
@@ -13,10 +8,19 @@ window.onload = function() {
     })
 };
 
+const wordList = getWordList();
+const numWords = wordList.length;
+const curWord = getRandomWord(wordList);
+console.log(curWord);
+
+const greenBox = "seaGreen";
+const yellowBox = "darkKhaki";
+const redBox =  "indianRed";
+
 let activeObj = document;
-let inputGrid = document.getElementById("inputGrid");
+let gameGrid = document.getElementById("gameGrid");
 let validLetters = "QWERTYUIOPASDFGHJKLZXCVBNM";
-let inputBoxes = inputGrid.children;
+let inputBoxes = gameGrid.children;
 //indexes of 0-29 represent the input boxes
 //leading zeros in first two rows merely for visual alignment
 // 00 01 02 03 04
@@ -26,8 +30,7 @@ let inputBoxes = inputGrid.children;
 // 20 21 22 23 24
 // 25 26 27 28 29
 
-let inputIndex = 0;
-let startBox = inputBoxes[0];
+
 let curRowStart = 0;
 let curGuess = "";
 
@@ -49,31 +52,38 @@ activeObj.addEventListener('keypress', (e) => {
     }
 
     if (curInput == "ENTER" ){
-        //TODO: if enter hit with incomplete guess, do nothing. ELSE, do other checks
+        //if enter hit with incomplete guess, do nothing
         if (curGuess.length < 5){
-            console.log("enter pressed prematurely");
+            return
         }
-        //TODO: if enter hit with 5 letters in guess, validate the guess
         else if (curGuess.length == 5){
-            //TODO: paint the boxes green/red/yellow accordingly
+            //incorrect guess
+            if (curGuess != curWord){ 
+                //paint the boxes green/red/yellow accordingly
+                paintAllBoxesInRow(curRowStart);
+                //shake the boxes sideways to indicate incorrect guess
+                shakeAllElemsInRow(curRowStart,"X");
+                //move to next row and reset curGuess
+                curRowStart = curRowStart + 5;
+                curGuess = "";
+            }
+            //correct guess
+            else if (curGuess == curWord){
+                //paint all boxes in the row green
+                paintAllBoxesInRow(curRowStart);
+                //shake all the boxes vertically
+                shakeAllElemsInRow(curRowStart,"Y");
 
-            //shake the boxes sideways to indicate incorrect guess
-            shakeAllElemsInRow(curRowStart,"X");
-
-            //move to next row and reset curGuess
-            curRowStart = curRowStart + 5;
-            curGuess = "";
-
-        //TODO: if guess is correct, shake the boxes vertically, paint all green, print victory message
-            //paint all boxes in the row green
-
-            //shake all the boxes vertically
-            // shakeAllElemsInRow(curRowStart,"Y");
-
-            //print victory message/menu
+                //print victory message/menu
+                // document.addEventListener('animationend', () => {
+                //     if (confirm("You guessed correctly! Play again?")) {
+                //         //TODO: reset game
+                //         } else {
+                //           //TODO: exit
+                //         } 
+                //   });
+            }
         }
-
- 
     }
 }  
 );
@@ -101,18 +111,41 @@ function paintLettersToGrid(startPos){
         inputBoxes[startPos + i].value = curGuess[i];
         }
     }
-}
-
-
+};
 
 function shakeAllElemsInRow(row, shakeAxis){
     for (let i=0; i < 5; i++){
         let curElem = inputBoxes[row + i]
         shakeElementViaCSS(curElem, shakeAxis);
     }
-}
+};
 
-//shakeAxis must be a string of form "X" or "Y", indicating horizontal or vertical axis to shake
+function getRandomWord(listOfWords){
+    let randIndex = Math.floor(Math.random() * numWords)
+    return wordList[randIndex];
+};
+
+function paintAllBoxesInRow(startRow){
+    for (let i=0; i < 5; i++){
+        let curBoxIndex = startRow+i;
+        //the letter is not correct at all
+        if (!curWord.includes(curGuess[i])){
+            paintIndividualBox(curBoxIndex, redBox);
+        //the letter is in the word but in the wrong place
+        }else if (curGuess[i] === curWord[i]){
+            paintIndividualBox(curBoxIndex, greenBox);
+        //the letter is correctly placed
+        }else if (curWord.includes(curGuess[i])){
+            paintIndividualBox(curBoxIndex, yellowBox);
+        }
+    }
+};
+
+function paintIndividualBox(boxIndex, color){
+    inputBoxes[boxIndex].style.backgroundColor = color;
+    // inputBoxes[boxIndex].style.opacity = 1;
+};
+
 function shakeElementViaCSS(targetElem, shakeAxis){
     //adding the class names causes the element to shake
     targetElem.classList.add('animate__animated', 'animate__shake' + shakeAxis);

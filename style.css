@@ -14,8 +14,8 @@ body {
 
 
 h1 {
+    font-family: "Lucida Console",monospace;
     font-size: 3.5rem;
-/*    font-size: 3.5vh;*/
 }
 
 
@@ -32,7 +32,8 @@ h1 {
 /*    width: 5vw;
     height: 5vh;*/
     background-color: dimgrey;
-    opacity: 0.5;
+    /* background-color: rgb(204, 254, 1); */
+    opacity: .75;
     outline: none;
     text-align: center;
     text-transform: uppercase;
