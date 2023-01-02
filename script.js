@@ -37,7 +37,6 @@ let curGuess = "";
 
 
 activeObj.addEventListener('keypress', (e) => {
-    activeObj = document.getElementById("testInput");
     let curInput = e.key.toUpperCase();
     
     if (curInput == "TAB"){
@@ -50,7 +49,6 @@ activeObj.addEventListener('keypress', (e) => {
     if (validLetters.includes(curInput) && curInput != ""){
        curGuess = curGuess + curInput;
         console.log(curGuess);
-        activeObj.textContent = curGuess;
         paintLettersToGrid(curRowStart);
     }
 
@@ -61,8 +59,8 @@ activeObj.addEventListener('keypress', (e) => {
         }
         //TODO: if enter hit with 5 letters in guess, validate the guess
         else if (curGuess.length == 5){
-            console.log("validate guess here");
-            //TODO: paint the boxes green/red/yellow accordingly 
+            //TODO: paint the boxes green/red/yellow accordingly
+
             //shake the boxes sideways to indicate incorrect guess
             for (let i=0; i < 5; i++){
                 let curElem = inputBoxes[curRowStart + i]
@@ -74,6 +72,11 @@ activeObj.addEventListener('keypress', (e) => {
             curGuess = "";
 
         //TODO: if guess is correct, shake the boxes vertically, paint all green, print victory message
+            //paint all boxes in the row green
+
+            //shake all the boxes
+
+            //print victory message/menu
         }
 
  
@@ -87,13 +90,11 @@ activeObj.addEventListener('keyup', (e) => {
         return
     }
 
-    activeObj = document.getElementById("testInput");
     let curInput = e.key.toUpperCase();
 
     if (curInput == "BACKSPACE" ){
         curGuess = curGuess.slice(0,-1);
         console.log(curGuess);
-        activeObj.textContent = curGuess;
         paintLettersToGrid(curRowStart);
     }
 });
