@@ -30,7 +30,9 @@ let inputBoxes = inputGrid.children;
 let inputIndex = 0;
 let startBox = inputBoxes[0];
 startBox.focus();
+// inputBoxes[inputIndex].focus();
 let curGuess = "";
+// let curGuessLen = curGuess.length;
 
 
 activeObj.addEventListener('keypress', (e) => {
@@ -41,15 +43,20 @@ activeObj.addEventListener('keypress', (e) => {
     if (curInput == "ENTER"){
         //TODO: implement logic for rejecting Enter unless 5 letters have been entered
         // should give user a subtle nod that enter was rejected, maybe by wiggling input boxes for that row?
+        return;
     }
 
     //if its a valid letter, increment index and add entered value to the curGuess, move to next box
     if (validLetters.includes(curInput) && curInput != ""){
         if (inputIndex <= 29){
+            //&& ((inputIndex+1) % 5 != 0)
+            //TODO: add an activeobject.value = "" to the backspace logic to correspond to this
+            //TODO: this should fix the issue of backspacing one char to left when at 5-char wall
             inputIndex++;
         }
         curGuess = curGuess + curInput;
         console.log(curGuess);
+        // console.log(curGuessLen);
         activeObj = inputBoxes[inputIndex];
         activeObj.focus();
     }  
@@ -64,12 +71,16 @@ activeObj.addEventListener('keyup', (e) => {
     if (curInput == "TAB"){
         activeObj = inputBoxes[inputIndex]
         activeObj.focus();
+        shakeElementViaCSS(activeObj);
     }
 
     //if the player has entered an invalid char, clear the box without advancing to the next one
+    //shake the element to give the user a visual cue that the input was not valid
     if (!validLetters.includes(curInput) && !validKeys.includes(curInput)){
         activeObj.value = "";
-        console.log("invalid letter input: " + curInput)
+        activeObj = inputBoxes[inputIndex];
+        activeObj.focus();
+        shakeElementViaCSS(activeObj);
     }
 });
 
@@ -93,3 +104,16 @@ activeObj.addEventListener('keydown', (e) => {
 
     }
 });
+
+
+
+function shakeElementViaCSS(targetElem){
+    //adding the class names causes the element to shake
+    targetElem.classList.add('animate__animated', 'animate__shakeX');
+
+    //listening for the animation to finish and removing the class names
+    //this ensures the animation can happen again if triggered by user behavior
+    targetElem.addEventListener('animationend', () => {
+        targetElem.classList.remove('animate__animated', 'animate__shakeX');
+      });
+};

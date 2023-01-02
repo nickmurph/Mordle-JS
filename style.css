@@ -9,6 +9,7 @@ body {
 /*    background-image:url('img/stardust.png');*/
     background-size:contain;
     background-position:center;
+    /* pointer-events:none; */
 }
 
 
