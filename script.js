@@ -9,14 +9,14 @@ const numWords = wordList.length;
 const greenBox = "seaGreen";
 const yellowBox = "darkKhaki";
 const redBox =  "indianRed";
+const gameGrid = document.getElementById("gameGrid");
+const validLetters = "QWERTYUIOPASDFGHJKLZXCVBNM";
+const inputBoxes = gameGrid.children;
 
-
+//variables
 let curWord = getRandomWord(wordList);
 console.log(curWord);
 let activeObj = document;
-let gameGrid = document.getElementById("gameGrid");
-let validLetters = "QWERTYUIOPASDFGHJKLZXCVBNM";
-let inputBoxes = gameGrid.children;
 let curRowStart = 0;
 let curGuess = "";
 
@@ -24,7 +24,7 @@ let curGuess = "";
 
 
 
-
+// main game loop
 activeObj.addEventListener('keypress', (e) => {
     let curInput = e.key.toUpperCase();
     
@@ -56,7 +56,7 @@ activeObj.addEventListener('keypress', (e) => {
                 curRowStart = curRowStart + 5;
                 curGuess = "";
 
-                //TODO: if this is the sixth incorrect guess, print failure message 
+                //if this is the sixth incorrect guess, print failure message 
                 if (curRowStart == 30){
                     setTimeout(() => {
                         window.alert("You didn't guess the word!");
@@ -82,7 +82,7 @@ activeObj.addEventListener('keypress', (e) => {
 }  
 );
 
-
+//backspace not handled well (at all?) by keypress, so using keyup
 activeObj.addEventListener('keyup', (e) => {
     let curInput = e.key.toUpperCase();
     
@@ -150,26 +150,18 @@ function shakeElementViaCSS(targetElem, shakeAxis){
       });
 };
 
-
-function resetGame(){
-    emptyAllBoxes();
-    curWord = getRandomWord(wordList);
-    console.log(curWord);
-    // activeObj = document;
-    // gameGrid = document.getElementById("gameGrid");
-    // validLetters = "QWERTYUIOPASDFGHJKLZXCVBNM";
-    // inputBoxes = gameGrid.children;
-    curRowStart = 0;
-    curGuess = "";
-
-
-
-}
-
 function emptyAllBoxes(){    
     let testElems = Array.from(document.getElementsByClassName('row'));
     testElems = testElems.map( elem => {
         elem.value = ''
         elem.style.backgroundColor = "rgb(105, 105, 105)";
     })
+}
+
+function resetGame(){
+    emptyAllBoxes();
+    curWord = getRandomWord(wordList);
+    console.log(curWord);
+    curRowStart = 0;
+    curGuess = "";
 }
