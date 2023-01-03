@@ -9,6 +9,7 @@ body {
    /* background-image:url('img/stardust.png'); */
     background-size:contain;
     background-position:center;
+    touch-action: manipulation;
 }
 
 
@@ -24,8 +25,8 @@ h1 {
 }
 
 .row {
-    width: 5rem;
-    height: 5rem;
+    width: 4rem;
+    height: 4rem;
     background-color: rgb(105, 105, 105);
     opacity: .75;
     outline: none;
@@ -91,8 +92,8 @@ h1 {
 }
 
 .kbBTN{
-    width: 4rem;
-    height: 4rem;
+    width: 3rem;
+    height: 3rem;
     padding: .2rem;
     margin: .2rem;
     background-color: lightgray;

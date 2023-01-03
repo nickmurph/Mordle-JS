@@ -6,7 +6,6 @@ window.onload = emptyAllBoxes();
 
 //resize various elements of the UI to accomodate smaller mobile dimensions
 resizeForMobile();
-// console.log(window.getComputedStyle(document.body).getPropertyValue('font-size'));
 
 //constants
 const wordList = getWordList();
@@ -20,7 +19,6 @@ const validLetters = "QWERTYUIOPASDFGHJKLZXCVBNM";
 
 
 //variables
-// let inputBoxes = Array.from(gameGrid.children);
 let inputBoxes = Array.from(document.getElementsByClassName('row'));
 // inputBoxes = inputBoxes.filter(item => item.id != ""); //remove references to <br> elements(needed for iOS safari CSS grid issues)
 let curWord = getRandomWord(wordList);
@@ -30,10 +28,24 @@ let curRowStart = 0;
 let curGuess = "";
 
 
+let keyboardButtons = Array.from(document.getElementsByClassName('kbBTN'));
+keyboardButtons.map(btn => {
+    btn.addEventListener("click", function(){
+        let curPress = btn.id;
+   
+        if (curPress == "BACKSPACE"){
+            curGuess = curGuess.slice(0,-1);
+            paintLettersToGrid(curRowStart);
+        }else if (curPress == "ENTER") {
+            handleEnterPressed();
+        }else if (curGuess.length < 5){
+        curGuess = curGuess + curPress;
+        paintLettersToGrid(curRowStart);
+        }
+    })
+});
 
 
-
-// main game loop
 activeObj.addEventListener('keypress', (e) => {
     let curInput = e.key.toUpperCase();
     
@@ -50,43 +62,7 @@ activeObj.addEventListener('keypress', (e) => {
     }
 
     if (curInput == "ENTER" ){
-        //if enter hit with incomplete guess, do nothing
-        if (curGuess.length < 5){
-            return
-        }
-        else if (curGuess.length == 5){
-            //incorrect guess
-            if (curGuess != curWord){ 
-                //paint the boxes green/red/yellow accordingly
-                paintAllBoxesInRow(curRowStart);
-                //shake the boxes sideways to indicate incorrect guess
-                shakeAllElemsInRow(curRowStart,"X");
-                //move to next row and reset curGuess
-                curRowStart = curRowStart + 5;
-                curGuess = "";
-
-                //if this is the sixth incorrect guess, print failure message 
-                if (curRowStart == 30){
-                    setTimeout(() => {
-                        window.alert("You didn't guess the word!");
-                        resetGame();
-                    }, 750);
-                }
-            }
-            //correct guess
-            else if (curGuess == curWord){
-                //paint all boxes in the row green
-                paintAllBoxesInRow(curRowStart);
-                //shake all the boxes vertically
-                shakeAllElemsInRow(curRowStart,"Y");
-
-                //print victory message/menu
-                setTimeout(() => {
-                    window.alert("You correctly guessed the word!");
-                    resetGame();
-                }, 750);
-            }
-        }
+        handleEnterPressed();
     }
 }  
 );
@@ -105,6 +81,46 @@ activeObj.addEventListener('keyup', (e) => {
     }
 });
 
+
+function handleEnterPressed(){
+    //if enter hit with incomplete guess, do nothing
+    if (curGuess.length < 5){
+        return
+    }
+    else if (curGuess.length == 5){
+        //incorrect guess
+        if (curGuess != curWord){ 
+            //paint the boxes green/red/yellow accordingly
+            paintAllBoxesInRow(curRowStart);
+            //shake the boxes sideways to indicate incorrect guess
+            shakeAllElemsInRow(curRowStart,"X");
+            //move to next row and reset curGuess
+            curRowStart = curRowStart + 5;
+            curGuess = "";
+
+            //if this is the sixth incorrect guess, print failure message 
+            if (curRowStart == 30){
+                setTimeout(() => {
+                    window.alert("You didn't guess the word!");
+                    resetGame();
+                }, 750);
+            }
+        }
+        //correct guess
+        else if (curGuess == curWord){
+            //paint all boxes in the row green
+            paintAllBoxesInRow(curRowStart);
+            //shake all the boxes vertically
+            shakeAllElemsInRow(curRowStart,"Y");
+
+            //print victory message/menu
+            setTimeout(() => {
+                window.alert("You correctly guessed the word!");
+                resetGame();
+            }, 750);
+        }
+    }
+}
 
 function paintLettersToGrid(startPos){
     for (let i=0; i < 5; i++){
@@ -134,21 +150,30 @@ function paintAllBoxesInRow(startRow){
         //the letter is not correct at all
         if (!curWord.includes(curGuess[i])){
             paintIndividualBox(curBoxIndex, redBox);
+            paintIndividualKey(curGuess[i], redBox);
         //the letter is in the word but in the wrong place
         }else if (curGuess[i] === curWord[i]){
             paintIndividualBox(curBoxIndex, greenBox);
+            paintIndividualKey(curGuess[i], greenBox);
         //the letter is correctly placed
         }else if (curWord.includes(curGuess[i])){
             paintIndividualBox(curBoxIndex, yellowBox);
+            paintIndividualKey(curGuess[i], yellowBox);
         }
     }
 };
 
 function paintIndividualBox(boxIndex, color){
     inputBoxes[boxIndex].style.backgroundColor = color;
+
     // inputBoxes[boxIndex].style.opacity = 1;
 };
 
+function paintIndividualKey(letter, color){
+    let targetKey = document.getElementById(letter);
+    targetKey.style.backgroundColor = color;
+    targetKey.style.background = color;
+}
 function shakeElementViaCSS(targetElem, shakeAxis){
     //adding the class names causes the element to shake
     targetElem.classList.add('animate__animated', 'animate__shake' + shakeAxis);
@@ -167,8 +192,16 @@ function emptyAllBoxes(){
     })
 }
 
+function repaintAllKeys(){
+    let testElems = Array.from(document.getElementsByClassName('kbBTN'));
+    testElems = testElems.map( elem=> {
+        elem.style.backgroundColor = "lightgray";
+    })
+}
+
 function resetGame(){
     emptyAllBoxes();
+    repaintAllKeys();
     curWord = getRandomWord(wordList);
     // console.log(curWord);
     curRowStart = 0;
@@ -194,6 +227,7 @@ function resizeForMobile () {
         boxes.map(elem => {
             elem.style.width = "3.5rem";
             elem.style.height = "3.5rem";
+            elem.style.fontSize = "3rem";
         });
 
         let gridContainer = document.getElementById("gameGrid");
@@ -202,12 +236,20 @@ function resizeForMobile () {
 
         let keys = Array.from(document.getElementsByClassName("kbBTN"));
         keys.map(elem => {
-            elem.style.width = "2rem";
-            elem.style.height = "2rem";
+            elem.style.width = "1.7rem";
+            elem.style.height = "1.7rem";
+            elem.style.margin = ".1rem";
         });
+
+        let enterKey = document.getElementById("ENTER");
+        enterKey.textContent = "ENT";
+        enterKey.style.fontSize = ".7rem";
         
         let mainLogo = document.getElementById("mainLogo");
         mainLogo.style.fontSize = "3rem";
         mainLogo.style.fontStyle = "italic";
+
+        let divider = document.getElementById("dividerForDesktop");
+        divider.remove();
     };
 }
