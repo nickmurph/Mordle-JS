@@ -150,6 +150,7 @@ function paintAllBoxesInRow(startRow){
         //the letter is not correct at all
         if (!curWord.includes(curGuess[i])){
             paintIndividualBox(curBoxIndex, redBox);
+            paintIndividualKey(curGuess[i], redBox);
         //the letter is in the word but in the wrong place
         }else if (curGuess[i] === curWord[i]){
             paintIndividualBox(curBoxIndex, greenBox);
@@ -162,9 +163,15 @@ function paintAllBoxesInRow(startRow){
 
 function paintIndividualBox(boxIndex, color){
     inputBoxes[boxIndex].style.backgroundColor = color;
+
     // inputBoxes[boxIndex].style.opacity = 1;
 };
 
+function paintIndividualKey(letter, color){
+    let targetKey = document.getElementById(letter);
+    targetKey.style.backgroundColor = color;
+    targetKey.style.background = color;
+}
 function shakeElementViaCSS(targetElem, shakeAxis){
     //adding the class names causes the element to shake
     targetElem.classList.add('animate__animated', 'animate__shake' + shakeAxis);
@@ -183,8 +190,16 @@ function emptyAllBoxes(){
     })
 }
 
+function repaintAllKeys(){
+    let testElems = Array.from(document.getElementsByClassName('kbBTN'));
+    testElems = testElems.map( elem=> {
+        elem.style.backgroundColor = "lightgray";
+    })
+}
+
 function resetGame(){
     emptyAllBoxes();
+    repaintAllKeys();
     curWord = getRandomWord(wordList);
     // console.log(curWord);
     curRowStart = 0;
@@ -219,9 +234,8 @@ function resizeForMobile () {
 
         let keys = Array.from(document.getElementsByClassName("kbBTN"));
         keys.map(elem => {
-            elem.style.width = "1.75rem";
-            elem.style.height = "1.75rem";
-            elem.style.padding = ".1rem";
+            elem.style.width = "1.7rem";
+            elem.style.height = "1.7rem";
             elem.style.margin = ".1rem";
         });
 
