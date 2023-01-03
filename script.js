@@ -20,8 +20,9 @@ const validLetters = "QWERTYUIOPASDFGHJKLZXCVBNM";
 
 
 //variables
-let inputBoxes = Array.from(gameGrid.children);
-inputBoxes = inputBoxes.filter(item => item.id != ""); //remove references to <br> elements(needed for iOS safari CSS grid issues)
+// let inputBoxes = Array.from(gameGrid.children);
+let inputBoxes = Array.from(document.getElementsByClassName('row'));
+// inputBoxes = inputBoxes.filter(item => item.id != ""); //remove references to <br> elements(needed for iOS safari CSS grid issues)
 let curWord = getRandomWord(wordList);
 // console.log(curWord);
 let activeObj = document;
