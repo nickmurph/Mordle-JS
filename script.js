@@ -6,7 +6,6 @@ window.onload = emptyAllBoxes();
 
 //resize various elements of the UI to accomodate smaller mobile dimensions
 resizeForMobile();
-// console.log(window.getComputedStyle(document.body).getPropertyValue('font-size'));
 
 //constants
 const wordList = getWordList();
@@ -20,7 +19,6 @@ const validLetters = "QWERTYUIOPASDFGHJKLZXCVBNM";
 
 
 //variables
-// let inputBoxes = Array.from(gameGrid.children);
 let inputBoxes = Array.from(document.getElementsByClassName('row'));
 // inputBoxes = inputBoxes.filter(item => item.id != ""); //remove references to <br> elements(needed for iOS safari CSS grid issues)
 let curWord = getRandomWord(wordList);
@@ -30,10 +28,24 @@ let curRowStart = 0;
 let curGuess = "";
 
 
+let keyboardButtons = Array.from(document.getElementsByClassName('kbBTN'));
+keyboardButtons.map(btn => {
+    btn.addEventListener("click", function(){
+        let curPress = btn.id;
+   
+        if (curPress == "BACKSPACE"){
+            curGuess = curGuess.slice(0,-1);
+            paintLettersToGrid(curRowStart);
+        }else if (curPress == "ENTER") {
+            handleEnterPressed();
+        }else if (curGuess.length < 5){
+        curGuess = curGuess + curPress;
+        paintLettersToGrid(curRowStart);
+        }
+    })
+});
 
 
-
-// main game loop
 activeObj.addEventListener('keypress', (e) => {
     let curInput = e.key.toUpperCase();
     
@@ -50,43 +62,7 @@ activeObj.addEventListener('keypress', (e) => {
     }
 
     if (curInput == "ENTER" ){
-        //if enter hit with incomplete guess, do nothing
-        if (curGuess.length < 5){
-            return
-        }
-        else if (curGuess.length == 5){
-            //incorrect guess
-            if (curGuess != curWord){ 
-                //paint the boxes green/red/yellow accordingly
-                paintAllBoxesInRow(curRowStart);
-                //shake the boxes sideways to indicate incorrect guess
-                shakeAllElemsInRow(curRowStart,"X");
-                //move to next row and reset curGuess
-                curRowStart = curRowStart + 5;
-                curGuess = "";
-
-                //if this is the sixth incorrect guess, print failure message 
-                if (curRowStart == 30){
-                    setTimeout(() => {
-                        window.alert("You didn't guess the word!");
-                        resetGame();
-                    }, 750);
-                }
-            }
-            //correct guess
-            else if (curGuess == curWord){
-                //paint all boxes in the row green
-                paintAllBoxesInRow(curRowStart);
-                //shake all the boxes vertically
-                shakeAllElemsInRow(curRowStart,"Y");
-
-                //print victory message/menu
-                setTimeout(() => {
-                    window.alert("You correctly guessed the word!");
-                    resetGame();
-                }, 750);
-            }
-        }
+        handleEnterPressed();
     }
 }  
 );
@@ -105,6 +81,46 @@ activeObj.addEventListener('keyup', (e) => {
     }
 });
 
+
+function handleEnterPressed(){
+    //if enter hit with incomplete guess, do nothing
+    if (curGuess.length < 5){
+        return
+    }
+    else if (curGuess.length == 5){
+        //incorrect guess
+        if (curGuess != curWord){ 
+            //paint the boxes green/red/yellow accordingly
+            paintAllBoxesInRow(curRowStart);
+            //shake the boxes sideways to indicate incorrect guess
+            shakeAllElemsInRow(curRowStart,"X");
+            //move to next row and reset curGuess
+            curRowStart = curRowStart + 5;
+            curGuess = "";
+
+            //if this is the sixth incorrect guess, print failure message 
+            if (curRowStart == 30){
+                setTimeout(() => {
+                    window.alert("You didn't guess the word!");
+                    resetGame();
+                }, 750);
+            }
+        }
+        //correct guess
+        else if (curGuess == curWord){
+            //paint all boxes in the row green
+            paintAllBoxesInRow(curRowStart);
+            //shake all the boxes vertically
+            shakeAllElemsInRow(curRowStart,"Y");
+
+            //print victory message/menu
+            setTimeout(() => {
+                window.alert("You correctly guessed the word!");
+                resetGame();
+            }, 750);
+        }
+    }
+}
 
 function paintLettersToGrid(startPos){
     for (let i=0; i < 5; i++){
