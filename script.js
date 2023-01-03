@@ -194,6 +194,10 @@ function resizeForMobile () {
             elem.style.height = "3rem";
         });
 
+        let gridContainer = document.getElementById("gameGrid");
+        gridContainer.style.columnGap = ".1rem";
+        gridContainer.style.rowGap = ".1rem";
+
         let keys = Array.from(document.getElementsByClassName("kbBTN"));
         keys.map(elem => {
             elem.style.width = "2rem";
