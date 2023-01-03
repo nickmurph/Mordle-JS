@@ -2124,7 +2124,6 @@ let wordList=
   "PRIMP",
   "PRINT",
   "PRIOR",
-  "PRISE",
   "PRISM",
   "PRIVY",
   "PRIZE",

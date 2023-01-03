@@ -248,5 +248,8 @@ function resizeForMobile () {
         let mainLogo = document.getElementById("mainLogo");
         mainLogo.style.fontSize = "3rem";
         mainLogo.style.fontStyle = "italic";
+
+        let divider = document.getElementById("dividerForDesktop");
+        divider.remove();
     };
 }
