@@ -6,7 +6,7 @@ window.onload = emptyAllBoxes();
 
 //resize various elements of the UI to accomodate smaller mobile dimensions
 resizeForMobile();
-
+// console.log(window.getComputedStyle(document.body).getPropertyValue('font-size'));
 
 //constants
 const wordList = getWordList();
@@ -183,11 +183,17 @@ function checkMobile () {
 function resizeForMobile () {
     let userWindowWidth = document.documentElement.clientWidth;
     if (checkMobile() || userWindowWidth < 700){
+        let body = document.getElementById("mainBody");
+        body.style.background = "rgb(20, 165, 213)";
+        body.fontSize = "10px";
+        console.log(body.fontSize)
+
         let boxes = Array.from(document.getElementsByClassName("row"));
         boxes.map(elem => {
             elem.style.width = "3.75rem";
             elem.style.height = "3.75rem";
         });
+
         let keys = Array.from(document.getElementsByClassName("kbBTN"));
         keys.map(elem => {
             elem.style.width = "2rem";
@@ -196,7 +202,6 @@ function resizeForMobile () {
         
         let mainLogo = document.getElementById("mainLogo");
         mainLogo.style.fontSize = "2rem";
-        // mainLogo.textContent = "MORDLE"
         mainLogo.style.fontStyle = "italic";
     };
 }
