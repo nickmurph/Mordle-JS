@@ -2,7 +2,7 @@ import { getWordList } from "./wordList.js";
 
 //ensures that the input boxes are cleared when the page is refreshed
 window.onload = emptyAllBoxes();
-
+document.getElementById("gameGrid").contentEditable = true;
 
 //resize various elements of the UI to accomodate smaller mobile dimensions
 resizeForMobile();
