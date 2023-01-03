@@ -12,7 +12,8 @@ function checkMobile () {
   };
 
 //resize various elements of the UI to accomodate smaller mobile dimensions
-if (checkMobile()){
+let userWindowWidth = document.documentElement.clientWidth;
+if (checkMobile() || userWindowWidth < 700){
     let boxes = Array.from(document.getElementsByClassName("row"));
     boxes.map(elem => {
         elem.style.width = "3.75rem";
@@ -25,8 +26,9 @@ if (checkMobile()){
     });
     
     let mainLogo = document.getElementById("mainLogo");
-    mainLogo.style.fontSize = "2rem"
-
+    mainLogo.style.fontSize = "2rem";
+    // mainLogo.textContent = "MORDLE"
+    mainLogo.style.fontStyle = "italic";
 }
 
 
@@ -42,7 +44,7 @@ const inputBoxes = gameGrid.children;
 
 //variables
 let curWord = getRandomWord(wordList);
-console.log(curWord);
+// console.log(curWord);
 let activeObj = document;
 let curRowStart = 0;
 let curGuess = "";
@@ -188,7 +190,7 @@ function emptyAllBoxes(){
 function resetGame(){
     emptyAllBoxes();
     curWord = getRandomWord(wordList);
-    console.log(curWord);
+    // console.log(curWord);
     curRowStart = 0;
     curGuess = "";
 }
