@@ -238,7 +238,7 @@ function resizeForMobile () {
         let keys = Array.from(document.getElementsByClassName("kbBTN"));
         keys.map(elem => {
             elem.style.width = "1.7rem";
-            elem.style.height = "1.7rem";
+            elem.style.height = "2.5rem";
             elem.style.margin = ".1rem";
         });
 
