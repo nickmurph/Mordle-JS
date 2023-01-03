@@ -210,6 +210,7 @@ function resizeForMobile () {
         boxes.map(elem => {
             elem.style.width = "3.5rem";
             elem.style.height = "3.5rem";
+            elem.style.fontSize = "3rem";
         });
 
         let gridContainer = document.getElementById("gameGrid");
@@ -218,9 +219,15 @@ function resizeForMobile () {
 
         let keys = Array.from(document.getElementsByClassName("kbBTN"));
         keys.map(elem => {
-            elem.style.width = "2rem";
-            elem.style.height = "2rem";
+            elem.style.width = "1.75rem";
+            elem.style.height = "1.75rem";
+            elem.style.padding = ".1rem";
+            elem.style.margin = ".1rem";
         });
+
+        let enterKey = document.getElementById("ENTER");
+        enterKey.textContent = "ENT";
+        enterKey.style.fontSize = ".7rem";
         
         let mainLogo = document.getElementById("mainLogo");
         mainLogo.style.fontSize = "3rem";
