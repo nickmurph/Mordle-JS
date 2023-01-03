@@ -2,11 +2,11 @@ body {
     color: rgba(255,255,255,.5);
     text-align: center;
     text-transform: uppercase;
-    /*font-size: 5rem;*/
-    letter-spacing: .5em;
+    /* font-size: 5rem; */
+    /* letter-spacing: .5em; */
     top: 15%;
 	background: linear-gradient(to right, grey, rgb(0, 191, 255));
-/*    background-image:url('img/stardust.png');*/
+   /* background-image:url('img/stardust.png'); */
     background-size:contain;
     background-position:center;
 }
@@ -21,34 +21,34 @@ h1 {
 #brainIcon {
     height: 2.5rem;
     width: 2.5rem;
-/*    width: 2.5vw;
-    height: 2.5vh;*/
 }
 
 .row {
     width: 5rem;
     height: 5rem;
-/*    width: 5vw;
-    height: 5vh;*/
     background-color: rgb(105, 105, 105);
     opacity: .75;
     outline: none;
     text-align: center;
     text-transform: uppercase;
-/*    font-weight: bold;*/
+   /* font-weight: bold; */
     font-size: 4.5rem;
     color: seashell;
 }
 
 
 .grid-container{
-    display: inline-grid;
-    column-gap: .2rem;
-    row-gap: .2rem;
-    grid-template-columns: repeat(5, 1fr);
+    /* display: inline-grid; */
+    /* column-gap: .2rem;
+    row-gap: .2rem; */
+    /* grid-template-columns: repeat(5, 1fr); */
     pointer-events:none;
 }
 
+/* .row A{
+    display: flex;
+    flex-direction: row;
+} */
 
 
 .keyboard{
@@ -92,8 +92,6 @@ h1 {
 .kbBTN{
     width: 4rem;
     height: 4rem;
-/*    width: 4vw;
-    height: 4vh;*/
     padding: .2rem;
     margin: .2rem;
     background-color: lightgray;

@@ -16,9 +16,12 @@ const yellowBox = "darkKhaki";
 const redBox =  "indianRed";
 const gameGrid = document.getElementById("gameGrid");
 const validLetters = "QWERTYUIOPASDFGHJKLZXCVBNM";
-const inputBoxes = gameGrid.children;
+
+
 
 //variables
+let inputBoxes = Array.from(gameGrid.children);
+inputBoxes = inputBoxes.filter(item => item.id != ""); //remove references to <br> elements(needed for iOS safari CSS grid issues)
 let curWord = getRandomWord(wordList);
 // console.log(curWord);
 let activeObj = document;
@@ -185,18 +188,16 @@ function resizeForMobile () {
     if (checkMobile() || userWindowWidth < 700){
         let body = document.getElementById("mainBody");
         body.style.background = "rgb(20, 165, 213)";
-        body.fontSize = "10px";
-        console.log(body.fontSize)
 
         let boxes = Array.from(document.getElementsByClassName("row"));
         boxes.map(elem => {
-            elem.style.width = "3rem";
-            elem.style.height = "3rem";
+            elem.style.width = "3.5rem";
+            elem.style.height = "3.5rem";
         });
 
-        let gridContainer = document.getElementById("gameGrid");
-        gridContainer.style.columnGap = ".1rem";
-        gridContainer.style.rowGap = ".1rem";
+        // let gridContainer = document.getElementById("gameGrid");
+        // gridContainer.style.columnGap = ".1rem";
+        // gridContainer.style.rowGap = ".1rem";
 
         let keys = Array.from(document.getElementsByClassName("kbBTN"));
         keys.map(elem => {
@@ -205,7 +206,7 @@ function resizeForMobile () {
         });
         
         let mainLogo = document.getElementById("mainLogo");
-        mainLogo.style.fontSize = "2rem";
+        mainLogo.style.fontSize = "3rem";
         mainLogo.style.fontStyle = "italic";
     };
 }
