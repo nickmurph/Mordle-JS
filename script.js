@@ -154,9 +154,11 @@ function paintAllBoxesInRow(startRow){
         //the letter is in the word but in the wrong place
         }else if (curGuess[i] === curWord[i]){
             paintIndividualBox(curBoxIndex, greenBox);
+            paintIndividualKey(curGuess[i], greenBox);
         //the letter is correctly placed
         }else if (curWord.includes(curGuess[i])){
             paintIndividualBox(curBoxIndex, yellowBox);
+            paintIndividualKey(curGuess[i], yellowBox);
         }
     }
 };
