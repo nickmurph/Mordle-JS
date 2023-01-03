@@ -190,8 +190,8 @@ function resizeForMobile () {
 
         let boxes = Array.from(document.getElementsByClassName("row"));
         boxes.map(elem => {
-            elem.style.width = "3.75rem";
-            elem.style.height = "3.75rem";
+            elem.style.width = "3rem";
+            elem.style.height = "3rem";
         });
 
         let keys = Array.from(document.getElementsByClassName("kbBTN"));
