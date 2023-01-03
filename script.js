@@ -195,9 +195,9 @@ function resizeForMobile () {
             elem.style.height = "3.5rem";
         });
 
-        // let gridContainer = document.getElementById("gameGrid");
-        // gridContainer.style.columnGap = ".1rem";
-        // gridContainer.style.rowGap = ".1rem";
+        let gridContainer = document.getElementById("gameGrid");
+        gridContainer.style.columnGap = ".1rem";
+        gridContainer.style.rowGap = ".1rem";
 
         let keys = Array.from(document.getElementsByClassName("kbBTN"));
         keys.map(elem => {

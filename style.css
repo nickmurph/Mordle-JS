@@ -1,10 +1,20 @@
+/*
+* Prefixed by https://autoprefixer.github.io
+* PostCSS: v8.4.14,
+* Autoprefixer: v10.4.7
+* Browsers: last 4 version
+*/
+
+
 body {
     color: rgba(255,255,255,.5);
     text-align: center;
     text-transform: uppercase;
-    /* font-size: 5rem; */
+    font-size: 5rem;
     /* letter-spacing: .5em; */
     top: 15%;
+	background: -webkit-gradient(linear, left top, right top, from(rgba(202, 149, 15, 0.93)), to(rgb(0, 191, 255)));
+	background: -o-linear-gradient(left, rgb(179, 70, 139), rgb(0, 191, 255));
 	background: linear-gradient(to right, grey, rgb(0, 191, 255));
    /* background-image:url('img/stardust.png'); */
     background-size:contain;
@@ -38,10 +48,14 @@ h1 {
 
 
 .grid-container{
-    /* display: inline-grid; */
-    /* column-gap: .2rem;
-    row-gap: .2rem; */
-    /* grid-template-columns: repeat(5, 1fr); */
+    display: -ms-inline-grid;
+    display: inline-grid; 
+    -webkit-column-gap: .2rem; 
+       -moz-column-gap: .2rem; 
+            column-gap: .2rem;
+    row-gap: .2rem;
+    -ms-grid-columns: 1fr .2rem 1fr .2rem 1fr .2rem 1fr .2rem 1fr;
+    grid-template-columns: repeat(5, 1fr);
     pointer-events:none;
 }
 
@@ -52,40 +66,70 @@ h1 {
 
 
 .keyboard{
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
-    flex-direction: column;
-    align-self: center;
-    align-items: center;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+    -ms-flex-item-align: center;
+        -ms-grid-row-align: center;
+        align-self: center;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
     opacity: 0.8;
     text-align: center;
     text-transform: uppercase;
-/*    width: 2rem;
-    height: 2rem;*/
-/*    padding: .005rem,.005rem;
-    margin: .005rem,.005rem;*/
 }
 
 .toprow{
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
-    flex-direction: row;
-/*    width: 5rem;
-    height: 5rem;*/
-    align-self: center;
-    align-items: center;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: row;
+            flex-direction: row;
+    -ms-flex-item-align: center;
+        -ms-grid-row-align: center;
+        align-self: center;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
     justify-items: center;
 }
 .middlerow{
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
-    flex-direction: row;
-    align-self: center;
-    align-items: center;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: row;
+            flex-direction: row;
+    -ms-flex-item-align: center;
+        -ms-grid-row-align: center;
+        align-self: center;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
     justify-items: center;
 }
 .bottomrow{
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
-    flex-direction: row;
-    align-self: center;
-    align-items: center;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: row;
+            flex-direction: row;
+    -ms-flex-item-align: center;
+        -ms-grid-row-align: center;
+        align-self: center;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
     justify-items: center;
 }
 
