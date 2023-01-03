@@ -2,7 +2,7 @@ import { getWordList } from "./wordList.js";
 
 //ensures that the input boxes are cleared when the page is refreshed
 window.onload = emptyAllBoxes();
-
+document.getElementById("gameGrid").contentEditable = true;
 
 //resize various elements of the UI to accomodate smaller mobile dimensions
 resizeForMobile();
@@ -13,14 +13,12 @@ const numWords = wordList.length;
 const greenBox = "seaGreen";
 const yellowBox = "darkKhaki";
 const redBox =  "indianRed";
-const gameGrid = document.getElementById("gameGrid");
 const validLetters = "QWERTYUIOPASDFGHJKLZXCVBNM";
 
 
 
 //variables
 let inputBoxes = Array.from(document.getElementsByClassName('row'));
-// inputBoxes = inputBoxes.filter(item => item.id != ""); //remove references to <br> elements(needed for iOS safari CSS grid issues)
 let curWord = getRandomWord(wordList);
 // console.log(curWord);
 let activeObj = document;
@@ -28,6 +26,7 @@ let curRowStart = 0;
 let curGuess = "";
 
 
+//handles the user input when the on-screen keyboard is being used
 let keyboardButtons = Array.from(document.getElementsByClassName('kbBTN'));
 keyboardButtons.map(btn => {
     btn.addEventListener("click", function(){
@@ -45,7 +44,7 @@ keyboardButtons.map(btn => {
     })
 });
 
-
+//handles the user input when a PC keyboard is being used
 activeObj.addEventListener('keypress', (e) => {
     let curInput = e.key.toUpperCase();
     
@@ -82,11 +81,13 @@ activeObj.addEventListener('keyup', (e) => {
 });
 
 
+
 function handleEnterPressed(){
-    //if enter hit with incomplete guess, do nothing
+    //if enter pressed with incomplete guess, do nothing
     if (curGuess.length < 5){
         return
     }
+    //if enter pressed after a 5 letter guess is made
     else if (curGuess.length == 5){
         //incorrect guess
         if (curGuess != curWord){ 
@@ -98,7 +99,7 @@ function handleEnterPressed(){
             curRowStart = curRowStart + 5;
             curGuess = "";
 
-            //if this is the sixth incorrect guess, print failure message 
+            //if this is the sixth incorrect guess, print failure message after a brief pause for the animation
             if (curRowStart == 30){
                 setTimeout(() => {
                     window.alert("You didn't guess the word!");
@@ -112,8 +113,7 @@ function handleEnterPressed(){
             paintAllBoxesInRow(curRowStart);
             //shake all the boxes vertically
             shakeAllElemsInRow(curRowStart,"Y");
-
-            //print victory message/menu
+            //print victory message/menu after a brief pause for the animation 
             setTimeout(() => {
                 window.alert("You correctly guessed the word!");
                 resetGame();
@@ -123,6 +123,7 @@ function handleEnterPressed(){
 }
 
 function paintLettersToGrid(startPos){
+    //for each letter in the guess, paint it to the corresponding input box
     for (let i=0; i < 5; i++){
         if (curGuess[i] == undefined){
             inputBoxes[startPos + i].value = "";
@@ -165,14 +166,12 @@ function paintAllBoxesInRow(startRow){
 
 function paintIndividualBox(boxIndex, color){
     inputBoxes[boxIndex].style.backgroundColor = color;
-
     // inputBoxes[boxIndex].style.opacity = 1;
 };
 
 function paintIndividualKey(letter, color){
     let targetKey = document.getElementById(letter);
     targetKey.style.backgroundColor = color;
-    targetKey.style.background = color;
 }
 function shakeElementViaCSS(targetElem, shakeAxis){
     //adding the class names causes the element to shake
@@ -186,6 +185,7 @@ function shakeElementViaCSS(targetElem, shakeAxis){
 
 function emptyAllBoxes(){    
     let testElems = Array.from(document.getElementsByClassName('row'));
+    //using map to clear each box and return it to the default grey color
     testElems = testElems.map( elem => {
         elem.value = ''
         elem.style.backgroundColor = "rgb(105, 105, 105)";
@@ -221,6 +221,7 @@ function resizeForMobile () {
     let userWindowWidth = document.documentElement.clientWidth;
     if (checkMobile() || userWindowWidth < 700){
         let body = document.getElementById("mainBody");
+        //making the background a solid color, gradient doesn't look great on mobile
         body.style.background = "rgb(20, 165, 213)";
 
         let boxes = Array.from(document.getElementsByClassName("row"));
@@ -242,7 +243,7 @@ function resizeForMobile () {
         });
 
         let enterKey = document.getElementById("ENTER");
-        enterKey.textContent = "ENT";
+        enterKey.textContent = "ENT"; //Enter looks too squished on the smaller mobile key
         enterKey.style.fontSize = ".7rem";
         
         let mainLogo = document.getElementById("mainLogo");
@@ -250,6 +251,6 @@ function resizeForMobile () {
         mainLogo.style.fontStyle = "italic";
 
         let divider = document.getElementById("dividerForDesktop");
-        divider.remove();
+        divider.remove(); //remove the <br> between input box grid and keyboard for smaller layout
     };
 }
