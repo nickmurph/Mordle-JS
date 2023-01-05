@@ -1,5 +1,5 @@
 # Mordle-JS
-A Wordle-like browser game, adapted from the ![previous Mordle project](https://github.com/nickmurph/Mordle), a Python/Pygame desktop app.
+A Wordle-like browser game; adapted from the ![previous Mordle project](https://github.com/nickmurph/Mordle), a Python/Pygame desktop app.
 
 ## Features
 - Like Wordle, the user has 6 attempts to guess a 5 letter word.
