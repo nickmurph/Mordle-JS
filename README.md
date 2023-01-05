@@ -20,4 +20,7 @@ https://nickmurph.github.io/Mordle-JS/
 ## Basic UI:
 
 
-<img src="/img/demo-mobile1.jpeg" width="585" height="995" /><img src="/img/demo-mobile2.jpg" width="585" height="995" />
+<p float="left">
+<img src="/img/demo-mobile1.jpeg" width="439" height="746" />
+<img src="/img/demo-mobile2.jpg" width="439" height="746" />
+</p>
