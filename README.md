@@ -22,5 +22,5 @@ https://nickmurph.github.io/Mordle-JS/
 
 <p float="left">
 <img src="/img/demo-mobile1.jpeg" width="439" height="746" />
-<img src="/img/demo-mobile2.jpg" width="439" height="746" />
+ <!--- <img src="/img/demo-mobile2.jpg" width="439" height="746" /> --->
 </p>
