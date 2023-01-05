@@ -1,6 +1,8 @@
 # Mordle-JS
 A Wordle-like browser game; adapted from the ![previous Mordle project](https://github.com/nickmurph/Mordle), a Python/Pygame desktop app.
 
+Playable at: https://nickmurph.github.io/Mordle-JS/
+
 ## Features
 - Like Wordle, the user has 6 attempts to guess a 5 letter word.
 - Color-coding tracks entered letters across three categories: correct, partially valid, incorrect.
@@ -9,14 +11,6 @@ A Wordle-like browser game; adapted from the ![previous Mordle project](https://
 - Written in vanilla JS.
 
 </br>
-
-
-## Playable at:
-https://nickmurph.github.io/Mordle-JS/
-
-</br>
-
-## Basic UI:
 
 
 <p float="left">
