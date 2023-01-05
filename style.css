@@ -15,8 +15,10 @@ body {
 
 
 h1 {
-    font-family: "Lucida Console",monospace;
+    font-family: 'Courier New', 'Lucida Sans', monospace;
     font-size: 3.5rem;
+    font-style: italic;
+    font-weight: bold;
 }
 
 
