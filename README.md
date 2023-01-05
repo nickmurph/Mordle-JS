@@ -9,8 +9,7 @@ A Wordle-like browser game; adapted from the ![previous Mordle project](https://
 - Written in vanilla JS.
 
 </br>
-</br>
-</br>
+
 
 ## Playable at:
 https://nickmurph.github.io/Mordle-JS/
