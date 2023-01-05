@@ -238,7 +238,7 @@ function resizeForMobile () {
         let keys = Array.from(document.getElementsByClassName("kbBTN"));
         keys.map(elem => {
             elem.style.width = "1.9rem";
-            elem.style.height = "2.5rem";
+            elem.style.height = "2.8rem";
             elem.style.margin = ".1rem";
         });
 
@@ -250,7 +250,7 @@ function resizeForMobile () {
         mainLogo.style.fontSize = "3rem";
         mainLogo.style.fontStyle = "italic";
 
-        let divider = document.getElementById("dividerForDesktop");
-        divider.remove(); //remove the <br> between input box grid and keyboard for smaller layout
+        // let divider = document.getElementById("dividerForDesktop");
+        // divider.remove(); //remove the <br> between input box grid and keyboard for smaller layout
     };
 }

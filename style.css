@@ -5,7 +5,8 @@ body {
     font-size: 5rem;
     letter-spacing: .05em;
     top: 15%;
-	background: linear-gradient(to right, grey, rgb(0, 191, 255));
+	/* background: linear-gradient(to right, grey, rgb(0, 191, 255)); */
+    background: rgb(20, 165, 213);
    /* background-image:url('img/stardust.png'); */
     background-size:contain;
     background-position:center;
