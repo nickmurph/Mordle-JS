@@ -18,4 +18,6 @@ https://nickmurph.github.io/Mordle-JS/
 </br>
 
 ## Basic UI:
-![WIP image of a winning Mordle game](/img/demo-wip.png)
+
+
+<img src="/img/demo-mobile1.jpeg" width="585" height="995" /><img src="/img/demo-mobile2.jpg" width="585" height="995" />
