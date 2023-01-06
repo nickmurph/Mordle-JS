@@ -243,8 +243,8 @@ function resizeForMobile () {
         });
 
         let enterKey = document.getElementById("ENTER");
-        enterKey.textContent = "ENT"; //Enter looks too squished on the smaller mobile key
-        enterKey.style.fontSize = ".7rem";
+        enterKey.textContent = "↵"; //Enter looks too squished on the smaller mobile key
+        enterKey.style.fontSize = "1.5rem";
         
         let mainLogo = document.getElementById("mainLogo");
         mainLogo.style.fontSize = "3rem";
